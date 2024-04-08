@@ -33,19 +33,19 @@ defaults
         errorfile 503 /etc/haproxy/errors/503.http
         errorfile 504 /etc/haproxy/errors/504.http
 
-frontend nadiateta.tech-tech-frontend
+frontend nadiateta-frontend
         bind *:80
         mode http
         http-request redirect scheme https code 301 unless { ssl_fc }
         http-request set-header X_Forwarded-Proto http
-        default_backend nadiateta-tech-backend
+        default_backend nadiateta-backend
 
-frontend nadiateta.tech-tech-frontend-https
+frontend nadiateta-frontend-https
         bind *:443 ssl crt /etc/haproxy/certs/www.nadiateta.tech.pem
         http-request set-header X-Forwarded-Proto https
-        default_backend nadiateta-tech-backend
+        default_backend nadiateta-backend
 
-backend nadiateta-tech-backend
+backend nadiateta-backend
         balance roundrobin
         server 6000-web-01 54.221.73.254:80 check
         server 6000-web-02 34.229.154.200:80 check
